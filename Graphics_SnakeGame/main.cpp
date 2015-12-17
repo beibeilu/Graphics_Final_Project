@@ -16,6 +16,7 @@
 #include <time.h>   // time (for random seed)
 #include <stdlib.h> // random number stuff (srand, rand)
 #include <iostream>
+#include <tiffio.h>
 
 using namespace std;
 
@@ -142,7 +143,7 @@ void init(void)
     speed = 1.0;
     
     // initialize world data structures
-    s1Radius = 0.75;
+    s1Radius = 1;
     // position and movemnet are all random
     s1XPos = randomf( -5.0+s1Radius, 5.0-s1Radius );
     s1YPos = randomf( -15.0+s1Radius, 15.0-s1Radius );
@@ -157,7 +158,7 @@ void init(void)
     s1YThetaDelta = randomf( -5.0, 5.0 );
     s1ZThetaDelta = randomf( -5.0, 5.0 );
     
-    s2Radius = 1.5;
+    s2Radius = 1;
     // position and movement are all random
     s2XPos = randomf( -5.0+s2Radius, 5.0-s2Radius );
     s2YPos = randomf( -15.0+s2Radius, 15.0-s2Radius );
@@ -237,6 +238,7 @@ void timer( int val )
     if( s1ZPos+s1Radius > 5.0 || s1ZPos-s1Radius < -5.0 )
     {
         s1ZPos -= s1ZDelta;
+//        s1ZDelta = -s1ZDelta;
     }
     
     // rotate sphere1
@@ -296,7 +298,8 @@ void timer( int val )
     if( dist2 <= (s1Radius + pRadius) )
     {
         // they intersect, so game over
-        gameOver();
+        
+        pRadius += 0.2;
     }
     float dist3 = sqrt( (s2XPos-pXPos)*(s2XPos-pXPos) +
                        (s2YPos-pYPos)*(s2YPos-pYPos) +
@@ -381,16 +384,16 @@ void keyboard(unsigned char key, int x, int y)
         case 'W': // going toward
         case 'w':
             pZPos -= 0.3;
-            if( pZPos > 5.0 )
-                pZPos = 5.0;
+            if( pZPos < -5.0 )
+                pZPos = -5.0;
             glutPostRedisplay();
             break;
             
         case 'S': //going back
         case 's':
             pZPos += 0.3;
-            if( pZPos < -5.0 )
-                pZPos = -5.0;
+            if( pZPos > 5.0 )
+                pZPos = 5.0;
             glutPostRedisplay();
             break;
 
@@ -513,39 +516,45 @@ void display(void)
     glPopMatrix();
     
     if( startGame )
-    {// draw sphere1
-        glPushMatrix(); // push world frame so we can get back here
-        glTranslatef( s1XPos, s1YPos, s1ZPos );
-        glRotatef( s1XTheta, 1, 0, 0 );
-        glRotatef( s1YTheta, 0, 1, 0 );
-        glRotatef( s1ZTheta, 0, 0, 1 );
-        glColor3f( 1.0, 0.0, 0.0 );
-        glPushMatrix();
-        glScalef( s1Radius, s1Radius, s1Radius );
-        drawSphere();
-        glPopMatrix();
+    {
+        // draw sphereA
+        
+        for (int i = 0; i < 2; i++) {
+            glPushMatrix(); // push world frame so we can get back here
+            glTranslatef( s1XPos, s1YPos, s1ZPos );
+            glRotatef( s1XTheta, 1, 0, 0 );
+            glRotatef( s1YTheta, 0, 1, 0 );
+            glRotatef( s1ZTheta, 0, 0, 1 );
+            glColor3f( 1.0, 0.0, 0.0 );
+            glPushMatrix();
+            glScalef( s1Radius, s1Radius, s1Radius );
+            drawSphere();
+            glPopMatrix();
+        }
         
         // back to world frame
         glPopMatrix();
         
-        // draw sphere2
-        glPushMatrix(); // push world frame so we can get back here
-        glTranslatef( s2XPos, s2YPos, s2ZPos );
-        glRotatef( s2XTheta, 1, 0, 0 );
-        glRotatef( s2YTheta, 0, 1, 0 );
-        glRotatef( s2ZTheta, 0, 0, 1 );
-        glColor3f( 1.0, 1.0, 0.0 );
-        glPushMatrix();
-        glScalef( s2Radius, s2Radius, s2Radius );
-        drawSphere();
-        glPopMatrix();
+        // draw sphereB
+        for (int i = 0; i < 2; i++) {
+            glPushMatrix(); // push world frame so we can get back here
+            glTranslatef( s2XPos, s2YPos, s2ZPos );
+            glRotatef( s2XTheta, 1, 0, 0 );
+            glRotatef( s2YTheta, 0, 1, 0 );
+            glRotatef( s2ZTheta, 0, 0, 1 );
+            glColor3f( 1.0, 1.0, 0.0 );
+            glPushMatrix();
+            glScalef( s2Radius, s2Radius, s2Radius );
+            drawSphere();
+            glPopMatrix();
+        }
         
         // back to world frame
         glPopMatrix();
     }
     
     
-    //call it like this
+    // Draw grid
     
     // Bottom
     glPushMatrix(); // push world frame so we can get back here

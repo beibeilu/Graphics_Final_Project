@@ -10,7 +10,8 @@
 		30325B621C200154004A58E6 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30325B611C200154004A58E6 /* main.cpp */; };
 		30325B691C20016C004A58E6 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30325B681C20016C004A58E6 /* OpenGL.framework */; };
 		30325B6D1C20017D004A58E6 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30325B6C1C20017D004A58E6 /* GLUT.framework */; };
-		30325B711C200B5D004A58E6 /* libtiff in Frameworks */ = {isa = PBXBuildFile; fileRef = 30325B701C200B5D004A58E6 /* libtiff */; };
+		303798211C22C01A001D52FB /* libtiff.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3037981F1C22C01A001D52FB /* libtiff.5.dylib */; };
+		303798221C22C01A001D52FB /* libtiffxx.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 303798201C22C01A001D52FB /* libtiffxx.5.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,7 +32,8 @@
 		30325B681C20016C004A58E6 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		30325B6A1C200176004A58E6 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		30325B6C1C20017D004A58E6 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
-		30325B701C200B5D004A58E6 /* libtiff */ = {isa = PBXFileReference; lastKnownFileType = folder; name = libtiff; path = "../../Downloads/tiff-v3.4/libtiff"; sourceTree = "<group>"; };
+		3037981F1C22C01A001D52FB /* libtiff.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libtiff.5.dylib; path = ../../../../usr/local/Cellar/libtiff/4.0.6/lib/libtiff.5.dylib; sourceTree = "<group>"; };
+		303798201C22C01A001D52FB /* libtiffxx.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libtiffxx.5.dylib; path = ../../../../usr/local/Cellar/libtiff/4.0.6/lib/libtiffxx.5.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,7 +41,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				30325B711C200B5D004A58E6 /* libtiff in Frameworks */,
+				303798211C22C01A001D52FB /* libtiff.5.dylib in Frameworks */,
+				303798221C22C01A001D52FB /* libtiffxx.5.dylib in Frameworks */,
 				30325B6D1C20017D004A58E6 /* GLUT.framework in Frameworks */,
 				30325B691C20016C004A58E6 /* OpenGL.framework in Frameworks */,
 			);
@@ -51,7 +54,8 @@
 		30325B551C200154004A58E6 = {
 			isa = PBXGroup;
 			children = (
-				30325B701C200B5D004A58E6 /* libtiff */,
+				3037981F1C22C01A001D52FB /* libtiff.5.dylib */,
+				303798201C22C01A001D52FB /* libtiffxx.5.dylib */,
 				30325B6C1C20017D004A58E6 /* GLUT.framework */,
 				30325B6A1C200176004A58E6 /* GLKit.framework */,
 				30325B681C20016C004A58E6 /* OpenGL.framework */,
@@ -221,6 +225,12 @@
 		30325B661C200154004A58E6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = /usr/local/include;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/Cellar/libtiff/4.0.6/lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -228,6 +238,12 @@
 		30325B671C200154004A58E6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = /usr/local/include;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/Cellar/libtiff/4.0.6/lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -251,6 +267,7 @@
 				30325B671C200154004A58E6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
